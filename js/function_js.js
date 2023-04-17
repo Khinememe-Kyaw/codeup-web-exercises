@@ -9,7 +9,7 @@
  * > sayHello("codeup") // returns "Hello, codeup!"
  */
 function sayHello(name){
-    console.log("Hello " + name) ;
+    return ("Hello " + name) ;
 }
 sayHello("codeUp");
 
@@ -20,7 +20,8 @@ sayHello("codeUp");
  *
  * console.log 'helloMessage' to check your work
  */
-sayHello("Khinememe");
+let helloMessage = sayHello("Khinememe");
+
 /**
  * TODO:
  * Store your name as a string in a variable named 'myName', and pass that
@@ -73,7 +74,7 @@ isTwo(3);
  * > calculateTip(0.15, 33.42) // returns 5.013
  */
 function calculateTip(tipPercent, bill){
-    console.log(tipPercent* bill);
+    return (tipPercent* bill);
 }
 calculateTip(0.20, 20);
 calculateTip(0.25, 25.50);
@@ -106,6 +107,6 @@ console.log("The tip amount will be $" + tipAmount +" ." );
  * > applyDiscount(45.99, 0.12) // 40.4712
  */
 function applyDiscount(originalPrice, discountPercent){
-    console.log(originalPrice-(originalPrice*discountPercent));
+    return (originalPrice-(originalPrice*discountPercent));
 }
 applyDiscount(45.99, 0.12) // 40.4712
