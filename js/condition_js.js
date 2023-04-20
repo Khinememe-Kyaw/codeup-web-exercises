@@ -22,7 +22,7 @@
  * console.logging the function's return value
  */
 function analyzeColor(color){
-    if(color === "blue"){
+    if(color.toLowerCase() === "blue"){
         return ("blue is the color of the sky");
     }else if(color === "red"){
         return("Strawberries are red");
@@ -46,14 +46,14 @@ let randomColor = colors[Math.floor(Math.random() * colors.length)];
 //  * Pass the `randomColor` variable to your 'analyzeColor' function and console.log the results.
 //  * You should see a different message every time you refresh the page
 //  */
-// analyzeColor(randomColor);
+analyzeColor(randomColor);
 
 /**
  * TODO:
  * Comment out the code above, and refactor your function to use a switch-case statement
  */
-
-switch(randomColor){
+function analyzeColor(color){
+    switch(randomColor){
     case (randomColor ==="blue"):
         console.log("blue is the color of the sky");
     break;
@@ -63,6 +63,7 @@ switch(randomColor){
     default:
         console.log("I don't know anything about " + randomColor);
         break;
+    }
 }
 
 /**
@@ -72,7 +73,7 @@ switch(randomColor){
  * function to show it to the user.
  */
 let color = prompt("What is your favorite color?")
-analyzeColor(color);
+alert(analyzeColor(color));
 /* ########################################################################## */
 
 /**
@@ -149,22 +150,22 @@ alert("Your lucky number is " + luckyNumber + ". Your price before discount was 
  * HINT: The way we prompt for a value could be improved
  */
 //
-// let numOption = confirm("Would you like to submit the number ?");
-// if(numOption === true){
-//     let num = parseFloat(prompt("Please type the number"));
-//     if (isNaN(num) === true){
-//         alert("This is an incorrect input")
-//     }else{
-//         let isEven = (num%2===0)? ("The number is Even."): ("The number is Odd.");
-//         alert (isEven);
-//         let add100 = (num + 100);
-//         alert("Adding 100 to your number will be " + add100 +".")
-//         let isPositive = (num>=0)? "Number is Positive." :  "Number is Negative.";
-//         alert (isPositive);
-//     }
-// }else{
-//     alert ("That's cool");
-// }
+let numOption = confirm("Would you like to submit the number ?");
+if(numOption === true){
+    let num = parseFloat(prompt("Please type the number"));
+    if (isNaN(num) === true){
+        alert("This is an incorrect input")
+    }else{
+        let isEven = (num%2===0)? ("The number is Even."): ("The number is Odd.");
+        alert (isEven);
+        let add100 = (num + 100);
+        alert("Adding 100 to your number will be " + add100 +".")
+        let isPositive = (num>=0)? "Number is Positive." :  "Number is Negative.";
+        alert (isPositive);
+    }
+}else{
+    alert ("That's cool");
+}
 
 function num(userInput) {
     // let numOption = confirm("Would you like to submit the number ?");
@@ -188,3 +189,43 @@ let userInput = parseFloat(prompt("Please type the number"));
 num(userInput);
 
 
+// if(confirm("Would you like to enter a number?")) {
+//     let userInput = prompt("Enter a number");
+//     if (!isNaN(userInput)) {
+//     if (userInput % 2 === 0) {
+//         alert("The number " + userInput + " is even");
+//     } else {
+//         alert("The number " + userInput + " is odd");
+//         alert(`The number ${userInput} is odd"`);
+//     }
+//     alert("The number plus 100 = " + (pasrseInt(UserInput)) + 100);
+//     if (userInput >= 0) {
+//         alert("The number " + userInput + "is Positive.");
+//     } else {
+//         alert(`The number ${userInput} is Negative.`);
+//     }else{
+//             alert("This is an incorrect input");
+//         }
+// }
+// }
+
+function numberInfo(){
+    if(confirm("Would you like to enter a number?")) {
+        let userInput = prompt("Enter a number");
+        if (!isNaN(userInput)) {
+            if (userInput % 2 === 0) {
+                alert("The number " + userInput + " is even");
+            } else{
+                alert(`The number ${userInput} is odd"`);
+            }
+            alert("The number plus 100 = " + (pasrseInt(UserInput)) + 100);
+            if (userInput >= 0) {
+                alert("The number " + userInput + "is Positive.");
+            } else {
+                alert(`The number ${userInput} is Negative.`);
+            }else{
+                alert("This is an incorrect input");
+            }
+        }
+    }
+}
