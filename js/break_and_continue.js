@@ -1,8 +1,9 @@
 "use strict";
 
 //Problem - 2
-let input = prompt("Submit Odd Number between 1 and 50.");
+
 for(let i=1; i<50; i++){
+   let input = prompt("Submit Odd Number between 1 and 50.");
    if(input%2===1 && input>0 && input<50){
       alert(`Input is good! break!`);
       break;

@@ -14,7 +14,7 @@
 // }
 // while(i<=allCone);
 
-let allCone = Math.floor((Math.random() * 100) + 50);
+let allCone = Math.floor((Math.random() * 50) + 50);
 
 do{
     let i = Math.floor((Math.random() * 5) + 1);
