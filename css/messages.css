@@ -13,23 +13,54 @@ body, html {
     border-radius: 5px;
     margin: 0.5em 1em;
 }
+:root{
+    --bg-info: #CDDEFF;
+    --text-info: #3f399d;
+    --bg-success: #CFF3DA;
+    --text-success: #1d743f;
+    --bg-warning: #FCFBC9;
+    --text-warning: #907d21;
+    --bg-error: #FAD3D7;
+    --text-error: #8f2d42;
+
+}
 .message-info{
     margin-top: 2em;
-    color: #3f399d;
-    background-color: #CDDEFF;
+    color: var(--text-info);
+    background-color: var(--bg-info);
 }
 .message-success{
-    color: #1d743f;
-    background-color: #CFF3DA;
+    color: var(--text-success);
+    background-color: var(--bg-success);
 
 }
 .message-warning{
-    color: #907d21;
-    background-color: #FCFBC9;
+    color: var(--text-warning);
+    background-color: var(--bg-warning);
 
 }
 .message-error{
-    color: #8f2d42;
-    background-color: #FAD3D7;
+    color: var(--text-error);
+    background-color: var(--bg-error);
 
 }
+/*.message-info{*/
+/*    margin-top: 2em;*/
+/*    color: #3f399d;*/
+/*    background-color: #CDDEFF;*/
+/*}*/
+/*.message-success{*/
+/*    color: #1d743f;*/
+/*    background-color: #CFF3DA;*/
+
+/*}*/
+/*.message-warning{*/
+/*    color: #907d21;*/
+/*    background-color: #FCFBC9;*/
+
+/*}*/
+/*.message-error{*/
+/*    color: #8f2d42;*/
+/*    background-color: #FAD3D7;*/
+
+/*}*/
