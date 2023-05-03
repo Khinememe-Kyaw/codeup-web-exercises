@@ -1,0 +1,123 @@
+/* selector for id="container" */
+#container{
+    margin: 50px auto;
+    width: 500px;
+    padding: 10px;
+}
+
+/*  selector for all "h1" elements
+    that are a descendent of id="container"
+    and have a class of "fancy-header" */
+ #container .fancy-header h1{
+    color: blue;
+    text-decoration: underline;
+}
+
+/* selector for all "em" elements */
+em {
+    font-weight: bold;
+}
+
+/* selector for all elements with class="article" */
+.article {
+    clear:both;
+}
+
+
+
+/*  selector for all "anchor" elements
+    that are a direct child of an element with class="article" */
+ .article > a{
+    float:right;
+}
+
+/*Center the main heading*/
+/*Add a style to change the color of the headers on your page and make them underlined.*/
+.main-heading{
+    text-align: center;
+    color: blueviolet;
+    text-decoration: underline;
+}
+/*Add a style to change the background color of the page.*/
+/*Add a style to add a background image to your background.*/
+body{
+    background-color: antiquewhite;
+    background-image:url("https://www.worldbeachguide.com/photos/pfeiffer-beach1.jpg");
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/*Search how to manipulate the position, sizing of this background image.*/
+
+/*Add a style to change the list-style to something other than the default bullet.*/
+ul{
+    list-style: decimal;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+ol{
+    list-style: square;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+tr{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+/*Add a style to change the font for the entire page. Use google fonts if you would like.*/
+
+.main-heading{
+    font-family: 'Bruno Ace SC', cursive;
+    font-weight: bold;
+    font-size: 120px
+}
+.heading{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    font-size: 40px
+}
+.paragraph{
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
+    font-size: 30px
+}
+/*Add a style to change the table, table cells td and rows tr padding and font sizes.*/
+table {
+    border-collapse: collapse;
+    font-size: 16px;
+}
+td, th {
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/*Add a style to alter the anchor tags and its different states. (e.g. link, visited, hover and active).*/
+a:link {
+    color: red;
+    text-decoration: none;
+}
+a:visited {
+    color: darkgoldenrod;
+    text-decoration: none;
+}
+a:hover {
+    color: darkblue;
+    text-decoration: underline;
+}
+a:active {
+    color: green;
+    text-decoration: underline;
+}
+
+.resized-image {
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+}
+
