@@ -221,11 +221,13 @@ function numberInfo(){
             alert("The number plus 100 = " + (pasrseInt(UserInput)) + 100);
             if (userInput >= 0) {
                 alert("The number " + userInput + "is Positive.");
-            } else {
+            }else {
                 alert(`The number ${userInput} is Negative.`);
-            }else{
-                alert("This is an incorrect input");
             }
+
         }
+    }
+    else{
+        alert("This is an incorrect input");
     }
 }
