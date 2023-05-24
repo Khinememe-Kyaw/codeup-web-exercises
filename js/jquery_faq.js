@@ -4,7 +4,7 @@ $(document).ready(function() {
                         $("dd").toggleClass("invisible");
                 });
     $( "dt" ).click(function() {
-        $( "dt").toggleClass( "highlight" );
+        $( this ).toggleClass( "highlight" );
     });
 
 });
