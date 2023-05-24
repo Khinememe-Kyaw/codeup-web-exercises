@@ -14,9 +14,13 @@ $(document).ready(function() {
     });
 
     // When any h3 is clicked, the lis underneath it should be bolded. Use font-weight: bold to achieve this.
-
+    $('h3').click(function() {
+            $(this).next('ul').children('li').css('font-weight', 'bold');
+        });
 
     // When any list item is clicked, first li of the parent ul should have a font color of blue.
-
+    $('li').click(function(){
+        $
+    })
 });
 
