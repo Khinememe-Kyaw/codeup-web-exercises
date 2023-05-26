@@ -24,6 +24,16 @@
             url: 'data/blog.json',
         }).done(function(data) {
             console.log(data);
+            $("#posts").empty();
+
+            data.forEach(function(post) {
+                var listHeading = $('<ul>');
+                listHeading.append($('<li>' + post.title + '</li>'));
+                listHeading.append($('<li>' + post.content + '</li>'));
+                listHeading.append($('<li>' + post.categories + '</li>'));
+                listHeading.append($('<li>' + post.date + '</li>'));
+                $("#posts") .append(listHeading);
+            });
 
         });
     })();
