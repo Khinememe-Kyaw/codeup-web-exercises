@@ -88,6 +88,15 @@
 
 
         // TODO: Take the data from inventory.json and append it to the products table
+            var productsTable = $('#insertProducts');
+            data.forEach(function (product) {
+                var tableRow = $('<tr>');
+                tableRow.append('<td>' + product.title +'</td>');
+                tableRow.append('<td>' + product.quantity +'</td>');
+                tableRow.append('<td>' + product.price +'</td>');
+                tableRow.append('<td>' + product.categories.join(', ') +'</td>');
+                productsTable.append(tableRow);
+            })
 
         })
 
