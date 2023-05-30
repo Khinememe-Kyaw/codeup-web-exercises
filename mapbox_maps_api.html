@@ -25,34 +25,48 @@
         var accessToken = mapboxgl.accessToken = accessKey;
 
             accessToken = mapboxgl.accessToken;
-            var restaurantMap = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v12',
-                center: [-73.935242,40.730610],
-                zoom: 10
+        var restaurantMap = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: [-73.935242,40.730610],
+            zoom: 10
         })
 
-        var yakitoriInfo = {
-            address: "362 W 53rd St, New York, NY 10019",
-            popupHTML: "<p>Yakitori Torishin</p>"
-        };
-
-        var thaiInfo = {
-            address: "71-30 Roosevelt Ave, Queens, NY 11372",
-            popupHTML: "<p>Playground Thai Restaurant</p>"
-        };
-
-        var ramenInfo = {
-            address: "129 2nd Ave, New York, NY 10003",
-            popupHTML: "<p>Ramen Misoya</p>"
-        };
+        // var yakitoriInfo = {
+        //     address: "362 W 53rd St, New York, NY 10019",
+        //     popupHTML: "<p>Yakitori Torishin</p>"
+        // };
+        //
+        // var thaiInfo = {
+        //     address: "71-30 Roosevelt Ave, Queens, NY 11372",
+        //     popupHTML: "<p>Playground Thai Restaurant</p>"
+        // };
+        //
+        // var ramenInfo = {
+        //     address: "129 2nd Ave, New York, NY 10003",
+        //     popupHTML: "<p>Ramen Misoya</p>"
+        // };
+        var restaurantInfo = [
+            {
+                address: "362 W 53rd St, New York, NY 10019",
+                popupHTML: "<p> Yakitori Torishin</p>"
+            },
+            {
+                address: "71-30 Roosevelt Ave, Queens, NY 11372",
+                popupHTML: "<p>Playground Thai Restaurant</p>"
+            },
+            {
+                address: "129 2nd Ave, New York, NY 10003",
+                popupHTML: "<p>Ramen Misoya</p>"
+            }
+        ];
 
         // the  geocode method from mapbox-geocoder-utils.js
         function placeMarkerAndPopup(info, token, map) {
             geocode(info.address, token).then(function (coordinates) {
                 console.log(coordinates);
                map.setCenter(coordinates);
-                map.setZoom(15);
+                map.setZoom(10);
                 var popup = new mapboxgl.Popup()
                 // info.popupHTML(popup)
                     .setHTML(info.popupHTML)
@@ -64,10 +78,12 @@
             });
         }
 
-        placeMarkerAndPopup(yakitoriInfo, accessToken, restaurantMap);
-        placeMarkerAndPopup(thaiInfo, accessToken, restaurantMap);
-        placeMarkerAndPopup(ramenInfo, accessToken, restaurantMap);
-
+        // placeMarkerAndPopup(yakitoriInfo, accessToken, restaurantMap);
+        // placeMarkerAndPopup(thaiInfo, accessToken, restaurantMap);
+        // placeMarkerAndPopup(ramenInfo, accessToken, restaurantMap);
+    restaurantInfo.forEach(function(info){
+        placeMarkerAndPopup(info, accessToken, restaurantMap)
+        });
 
     </script>
 
