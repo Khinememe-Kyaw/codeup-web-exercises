@@ -35,6 +35,13 @@
             restaurantMap.setCenter(result);
             restaurantMap.setZoom(15);
         });
+        var marker = new mapboxgl.Marker()
+            .setLngLat([-73.987136,40.765058])
+            .addTo(map);
+        var popup = new mapboxgl.Popup()
+            .setLngLat([-73.987136,40.765058])
+            .setHTML("<p>Yakitori Torishin!</p>")
+            .addTo(map)
 
 
     </script>
