@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- Custom CSS -->
+    <style>
+         #map{
+            /* the width and height may be set to any size */
+            width: 100%;
+            height: 700px;
+        }
+    </style>
+    <title>Mapbox Exercise</title>
+</head>
+<body>
+    <h1>My favorite restaurant on Map </h1>
+    <div id="map"></div>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2hpbmVtZW1la3lhdyIsImEiOiJjbGk5N3R2Mm4xOWg4M2xuMXByczB3MTJwIn0.O9sQSWZd1SIuKw4XZ3uTrA';
+            // accessToken = mapboxgl.accessToken;
+         var restaurantMap = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v12',
+            center: [-73.987136,40.765058],
+            zoom: 10
+        })
+
+    </script>
+
+</body>
+</html>
+
+<!--Generate a map that shows the city with your favorite restaurant using geocoding.-->
+<!--Redraw the map of the above location at zoom levels 5, 15, and 20. Do this by simply changing the value of zoom
+ level where the map properties are initially set and refresh the page to see the changes. Can the zoom be changed
+ programmatically after the initial map is drawn?-->
+<!--Create a marker on your map of the exact location of your favorite restaurant set the zoom to allow for best
+viewing distance.-->
+<!--Create a popup with the name of the restaurant.-->
+<!--Make sure the info window does not display until the marker has been clicked on.-->
+<!--Refactor your code to display at least three of your favorite restaurants with information about each.
+ Create an array of objects with information about each restaurant to accomplish this.
+  Use a .forEach() loop rather than a for loop.-->
