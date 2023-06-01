@@ -10,10 +10,19 @@
 </head>
 <body>
 <h1>Weather Map Project</h1>
+
 <div id="weather-data"></div>
-<div id="weather-map"></div>
-<script   src="https://code.jquery.com/jquery-3.7.0.min.js"   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="   crossorigin="anonymous"></script>
+<div>
+    <form>
+        <input type="text" id="search-box" name="search" placeholder="Type the address">
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div id="map"></div>
+<pre id="coordinates" class="coordinates"></pre>
+
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"   integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="   crossorigin="anonymous"></script>
 <script src="js/mapbox-geocoder-utils.js"></script>
 <script src="js/accesskey.js"></script>
 <script src="js/weather_map.js"></script>
