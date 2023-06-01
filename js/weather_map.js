@@ -1,33 +1,34 @@
 'use strict';
-
+// accessing the map using key
 let accessToken = mapboxgl.accessToken = accessKey;
 accessToken = mapboxgl.accessToken;
+//adding coordinates on HTML
 const coordinates = document.getElementById('coordinates');
+//modifying map with center and zoom
 const weatherMap = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
     center: [0,0],
     zoom: 2
 });
-
+//adding marker on map
 const marker = new mapboxgl.Marker({
     draggable: true
 })
     .setLngLat([0, 0])
     .addTo(weatherMap);
-
+//Using onDragEnd function in order to have draggable marker and print lon and lat value on webpage
 function onDragEnd() {
     var lngLat = marker.getLngLat();
     coordinates.style.display = 'block';
     coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-// console.log(lngLat.lng);
+    //placed weather data inside the function to get weather information based on marker's lat and lon
 $.get("http://api.openweathermap.org/data/2.5/forecast", {
     APPID: weather_Map_Key,
     lat:    lngLat.lat,
     lon:   lngLat.lng,
     units: "imperial"
 })
-
     .done(function(data) {
         console.log('5 day forecast', data);
         let weatherHTML = '';
@@ -56,6 +57,32 @@ $.get("http://api.openweathermap.org/data/2.5/forecast", {
 }
 marker.on('dragend', onDragEnd);
 
+
+
+function searchLocation(event) {
+    event.preventDefault(); // Prevent form submission from refreshing the page
+
+    var input = document.getElementById("search-box").value;
+    console.log("input is:" + input);
+    var zipPattern = /^\d{5}$/;
+    var isZipCode = zipPattern.test(input);
+
+    $.get("https://api.openweathermap.org/data/2.5/forecast", {
+        APPID: weather_Map_Key,
+        q:input,
+        zip:input,
+        units: "imperial"
+    })
+        .done(function (data) {
+            console.log('5 day forecast', data);
+            console.log(data.city.coord.lat);
+            console.log(data.city.coord.lon);
+        })
+
+}
+var inputSubmit = document.querySelector('#search');
+inputSubmit.addEventListener('click', searchLocation );
+
 // var currentLocation = "16004, Braesgate Dr, Austin, TX, 78717";
 //
 // // the  geocode method from mapbox-geocoder-utils.js
@@ -64,18 +91,7 @@ marker.on('dragend', onDragEnd);
 //     map.setCenter(coordinates);
 //     map.setZoom(15);
 // })
-// const marker = new mapboxgl.Marker({
-//     draggable: true
-// })
-//     .setLngLat([-74.5, 40])
-//     .addTo(map);
-//
-// function onDragEnd() {
-//     const lngLat = marker.getLngLat();
-//     coordinates.style.display = 'block';
-//     coordinates.innerHTML = `Longitude: ${lngLat.lon}<br />Latitude: ${lngLat.lat}`;
-// }
-// marker.on('dragend', onDragEnd);
+
 // // for(i = 0; i<5; i++){
 // //     document.getElementById("img" + (i+1)).src = "http://openweathermap.org/img/wn/"+
 // //         data.list[i].weather[0].icon
@@ -109,32 +125,3 @@ marker.on('dragend', onDragEnd);
 // restaurantInfo.forEach(function(info){
 //     placeMarkerAndPopup(inputInfo, accessToken, weatherMap)
 // });
-// // Adding Coffee
-// // Get references to form and coffee list elements
-// var nameInput = document.querySelector('#name-input');
-//
-// // Add event listener to form submission
-// var inputSubmit = document.querySelector('#addCoffee');
-// inputSubmit.addEventListener('click', addCoffee );
-//
-// function addCoffee(e) {
-//     e.preventDefault();
-//     // Retrieve coffee name and roast values
-//     var coffeeName = document.querySelector('#coffee-name').value;
-//     var coffeeRoast = document.querySelector('#coffee-roast').value;
-//
-//     var capitalName = capitalizeFirstLetter(coffeeName);
-//     // Create new coffee object
-//     var newCoffee = {
-//         id: coffees.length + 1,
-//         name: capitalName,
-//         roast: coffeeRoast
-//     };
-//     //Add new coffees to original coffee list
-//     coffees.push(newCoffee);
-//     // renderCoffees(coffees);
-//
-//     // clear from the original list once refresh the page
-//     nameInput.reset();
-//     tbody.innerHTML = renderCoffees(coffees);
-// }
