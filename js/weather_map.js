@@ -1,127 +1,156 @@
+
 'use strict';
+
 // accessing the map using key
 let accessToken = mapboxgl.accessToken = accessKey;
 accessToken = mapboxgl.accessToken;
-//adding coordinates on HTML
-const coordinates = document.getElementById('coordinates');
-//modifying map with center and zoom
-const weatherMap = new mapboxgl.Map({
+
+// adding coordinates on HTML
+let coordinates = document.getElementById('coordinates');
+
+// modifying map with center and zoom
+let weatherMap = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
-    center: [0,0],
-    zoom: 2
+    center: [-97.720569, 31.084211],
+    zoom: 5
 });
-//adding marker on map
-const marker = new mapboxgl.Marker({
+
+// adding marker on map
+let marker = new mapboxgl.Marker({
     draggable: true
 })
-    .setLngLat([0, 0])
+    .setLngLat([-97.720569, 31.084211])
     .addTo(weatherMap);
-//Using onDragEnd function in order to have draggable marker and print lon and lat value on webpage
-function onDragEnd() {
-    var lngLat = marker.getLngLat();
-    coordinates.style.display = 'block';
-    coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-    //placed weather data inside the function to get weather information based on marker's lat and lon
-$.get("http://api.openweathermap.org/data/2.5/forecast", {
-    APPID: weather_Map_Key,
-    lat:    lngLat.lat,
-    lon:   lngLat.lng,
-    units: "imperial"
-})
-    .done(function(data) {
-        console.log('5 day forecast', data);
-        let weatherHTML = '';
-        let days =[ 'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday', 'Saturday'];
-        let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-        for (let i = 0; i < 5; i++) {
-            let dayIndex = i * 8;
-            let currentData = data.list[dayIndex];
-            let todayDate = new Date(currentData.dt * 1000);
-            var currentDay = days[todayDate.getDay()];
-            var currentMonth = months[todayDate.getMonth()];
+// Weather info for student location
+function weatherInfo(lat, lon) {
+    $.get("http://api.openweathermap.org/data/2.5/forecast", {
+        APPID: weather_Map_Key,
+        lat: lat,
+        lon: lon,
+        units: "imperial"
+    })
+        .done(function (data) {
+            console.log('5 day forecast', data);
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-            weatherHTML+= `<section>
-            <div>${currentDay}, ${currentMonth} ${todayDate.getDate()}</div>
-            <div>${currentData.main.temp_max} / ${currentData.main.temp_min}</div>
-            <div>Description: ${currentData.weather[0].description}</div>
-            <div>Humidity: ${currentData.main.humidity}</div>
-            <div>Wind: ${currentData.wind.gust}</div>
-            <div>Pressure: ${currentData.main.pressure}</div><br>
-        </section>`;
-        }
-        $("#weather-data").html(weatherHTML);
-    });
+            for (let i = 0; i < 5; i++) {
+                let dayIndex = i * 8;
+                let currentData = data.list[dayIndex];
+                let todayDate = new Date(currentData.dt * 1000);
+                let currentDay = days[todayDate.getDay()];
+                let currentMonth = months[todayDate.getMonth()];
+                let cardHTML = `
+          <div class="card">
+            <div class="container">
+              <div class="card-date">${currentDay}, ${currentMonth} ${todayDate.getDate()}</div>
+              <div class="card-temperature">${currentData.main.temp_max} °F / ${currentData.main.temp_min} °F</div>
+              <div class="wi wi-owm-${currentData.weather[0].id}"></div>
+              <div class="card-description">Description: ${currentData.weather[0].description}</div>
+              <div class="card-humidity">Humidity: ${currentData.main.humidity}</div>
+              <div class="card-wind">Wind: ${currentData.wind.gust}</div>
+              <div class="card-pressure">Pressure: ${currentData.main.pressure}</div>
+            </div>
+          </div>
+        `;
+                $(`#card-${i + 1}`).html(cardHTML);
+            }
 
+            $("#currentCity").html(`Current Location: ${data.city.name}, ${data.city.country}`);
+        });
 }
+//Weather info based on lng and lat
+function updateWeatherInfo(lngLat) {
+    let lat = lngLat.lat;
+    let lon = lngLat.lng;
+    weatherInfo(lat, lon);
+}
+
+// Using onDragEnd function in order to have draggable marker and print lon and lat value on webpage
+function onDragEnd() {
+    let lngLat = marker.getLngLat();
+    updateWeatherInfo(lngLat);
+}
+
 marker.on('dragend', onDragEnd);
 
-
-
+//weather info based on search
 function searchLocation(event) {
     event.preventDefault(); // Prevent form submission from refreshing the page
 
-    var input = document.getElementById("search-box").value;
+    let input = document.getElementById("search-box").value;
     console.log("input is:" + input);
-    var zipPattern = /^\d{5}$/;
-    var isZipCode = zipPattern.test(input);
+
+    //Remove the existing marker if it exists
+    if (marker) {
+        marker.remove();
+    }
 
     $.get("https://api.openweathermap.org/data/2.5/forecast", {
         APPID: weather_Map_Key,
-        q:input,
-        zip:input,
+        q: input,
+        zip: input,
         units: "imperial"
     })
         .done(function (data) {
             console.log('5 day forecast', data);
             console.log(data.city.coord.lat);
             console.log(data.city.coord.lon);
-        })
+            geocode(input, accessToken).then(function (result) {
+                console.log(result);
+                var newMarker = new mapboxgl.Marker({
+                    draggable: true
+                }).setLngLat(result);
+                newMarker.addTo(weatherMap);
+                weatherMap.panTo({ lon: data.city.coord.lon, lat: data.city.coord.lat }, { duration: 5000 });
 
+                // Update the marker variable to the new marker
+                marker = newMarker;
+
+                // Make the marker draggable
+                marker.on('dragend', function () {
+                    onDragEnd(marker.getLngLat());
+                });
+
+                // Fetch weather information for the new location
+                updateWeatherInfo(marker.getLngLat());
+            });
+
+        });
 }
+
 var inputSubmit = document.querySelector('#search');
-inputSubmit.addEventListener('click', searchLocation );
+inputSubmit.addEventListener('click', searchLocation);
 
-// var currentLocation = "16004, Braesgate Dr, Austin, TX, 78717";
-//
-// // the  geocode method from mapbox-geocoder-utils.js
-// geocode(currentLocation, accessToken).then(function (coordinates) {
-//     console.log(coordinates);
-//     map.setCenter(coordinates);
-//     map.setZoom(15);
-// })
+weatherMap.on('click', function (e) {
+    // Remove the existing marker if it exists
+    if (marker) {
+        marker.remove();
+    }
+    // Create a new marker at the clicked coordinates
+    var newMarker = new mapboxgl.Marker({
+        draggable: true
+    }).setLngLat(e.lngLat);
 
-// // for(i = 0; i<5; i++){
-// //     document.getElementById("img" + (i+1)).src = "http://openweathermap.org/img/wn/"+
-// //         data.list[i].weather[0].icon
-// //         +".png";
-// // }
-// // <div> ${src = "http://openweathermap.org/img/wn/"+currentData.weather[0].icon}</div>
-//
-//
-// // .src = "http://openweathermap.org/img/w/"+obj.weather[0].icon+".png";
-//
-// var currentLocation = "16004, Braesgate Dr, Austin, TX, 78717";
-//
-//
-// // the  geocode method from mapbox-geocoder-utils.js
-// function placeMarkerAndPopup(info, token, map) {
-//     geocode(info, token).then(function (coordinates) {
-//         console.log(coordinates);
-//         var latitude = coordinates[1];
-//         var longitude = coordinates[0];
-//         console.log(latitude);
-//         console.log(longitude);
-//         map.setCenter(coordinates);
-//         map.setZoom(15);
-//         var marker = new mapboxgl.Marker()
-//             .setLngLat(coordinates)
-//             .addTo(map)
-//     });
-// }
-// placeMarkerAndPopup(currentLocation, accessToken, weatherMap)
-//
-// restaurantInfo.forEach(function(info){
-//     placeMarkerAndPopup(inputInfo, accessToken, weatherMap)
-// });
+    newMarker.addTo(weatherMap);
+
+    // Update the marker variable to the new marker
+    marker = newMarker;
+
+    // Make the marker draggable
+    marker.on('dragend', function () {
+        onDragEnd(marker.getLngLat());
+    });
+
+    // Fetch weather information for the clicked location
+    updateWeatherInfo(marker.getLngLat());
+
+});
+
+// Fetch weather information for the initial location
+updateWeatherInfo(marker.getLngLat());
+
+
+
