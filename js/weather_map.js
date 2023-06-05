@@ -114,7 +114,6 @@ function searchLocation(event) {
                     onDragEnd(marker.getLngLat());
                 });
 
-                // Fetch weather information for the new location
                 updateWeatherInfo(marker.getLngLat());
             });
 
